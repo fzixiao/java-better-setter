@@ -13,6 +13,23 @@
         <maven.compiler.target>8</maven.compiler.target>
 
     </properties>
+   <dependencies>
+
+       <dependency>
+           <groupId>com.sun</groupId>
+           <artifactId>tools</artifactId>
+           <version>1.8</version>
+           <scope>system</scope>
+           <systemPath>${env.JAVA_HOME}/lib/tools.jar</systemPath>
+       </dependency>
+       <dependency>
+           <groupId>com.google.auto.service</groupId>
+           <artifactId>auto-service</artifactId>
+           <version>1.0.1</version>
+       </dependency>
+
+   </dependencies>
+
     <build>
         <!-- 配置一下resources标签，过滤掉META-INF文件夹，这样在编译的时候就不会找到services的配置 -->
         <resources>
@@ -30,15 +47,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                    <encoding>utf-8</encoding>
-                    <compilerArgs>
-                        <arg>
-                            -XDignore.symbol.file
-                        </arg>
-                    </compilerArgs>
-                    <fork>true</fork>
+                    <source>${maven.compiler.target}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
             <!-- 在打包前(prepare-package生命周期)再把services文件夹重新拷贝过来 -->
@@ -84,9 +94,7 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
-
     </build>
 
 

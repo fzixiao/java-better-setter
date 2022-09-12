@@ -24,7 +24,8 @@ import java.util.Set;
  * @author : ZX
  * @since : 2022/09/11 18:01
  */
-@SupportedAnnotationTypes("com.zx.better.SetterProcessor")
+// @SupportedAnnotationTypes("com.zx.better.SetterProcessor")
+@SupportedAnnotationTypes("*")
 // 支持的Java版本号
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class SetterProcessor extends AbstractProcessor {
