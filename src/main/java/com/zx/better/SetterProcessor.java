@@ -16,6 +16,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -24,8 +25,8 @@ import java.util.Set;
  * @author : ZX
  * @since : 2022/09/11 18:01
  */
-// @SupportedAnnotationTypes("com.zx.better.SetterProcessor")
-@SupportedAnnotationTypes("*")
+@SupportedAnnotationTypes("com.zx.better.SetterProcessor")
+// @SupportedAnnotationTypes("*")
 // 支持的Java版本号
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class SetterProcessor extends AbstractProcessor {
@@ -67,6 +68,7 @@ public class SetterProcessor extends AbstractProcessor {
      */
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+        System.out.println("setter方法");
         // 获取被@SetterPro标记的元素
         Set<? extends Element> elementSet = roundEnv.getElementsAnnotatedWith(SetterPro.class);
         // 遍历，并对包含注解的元素进行处理
@@ -93,6 +95,7 @@ public class SetterProcessor extends AbstractProcessor {
                     jcVariableDeclList.forEach(jcVariableDecl -> {
                         // 输出日志
                         message.printMessage(Diagnostic.Kind.NOTE, " get " + jcVariableDecl.getName() + " 已经被处理了");
+                        treeMaker.pos=jcVariableDecl.pos;
                         handleElement(jcClassDecl, jcVariableDecl, ClassType);
                     });
                     super.visitClassDef(jcClassDecl);
@@ -150,6 +153,11 @@ public class SetterProcessor extends AbstractProcessor {
                 null
         );
 
+    }
+
+    @Override
+    public SourceVersion getSupportedSourceVersion() {
+        return super.getSupportedSourceVersion();
     }
 
 
